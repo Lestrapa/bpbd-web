@@ -22,10 +22,10 @@ export default function Home() {
           </h1>
           <p className="text-xl md:text-2xl text-white mb-8">Siap Siaga, Tanggap Bencana</p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">
+            <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white cursor-pointer">
               Laporkan Bencana
             </Button>
-            <Button size="lg" variant="outline" className="bg-[#003366] hover:bg-[#002244] text-white border-white">
+            <Button size="lg" variant="outline" className="bg-[#003366] hover:bg-[#002244] hover:text-[#F57C00] text-white cursor-pointer border-white">
               Lihat Informasi Terkini
             </Button>
           </div>
@@ -93,7 +93,7 @@ export default function Home() {
             />
           </div>
           <div className="flex justify-center mt-8">
-            <Button variant="outline" className="border-[#F57C00] text-[#F57C00] hover:bg-[#F57C00] hover:text-white">
+            <Button variant="outline" className="cursor-pointer border-[#F57C00] text-[#F57C00] hover:bg-[#F57C00] hover:text-white">
               Lihat Semua Berita
             </Button>
           </div>
