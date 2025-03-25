@@ -2,6 +2,7 @@ import { NewsCard } from '@/components/NewsCard'
 import { QuickAccessCard } from '@/components/QuickAccessCard'
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -74,28 +75,30 @@ export default function Home() {
               image="/news/news1.jpg"
               title="BPBD Barito Utara Bagikan Parcel Lebaran untuk Anggotanya"
               date="22 Maret 2025"
-              excerpt="Dalam rangka menyambut Hari Raya Idul Fitri 1446 H, BPBD Kabupaten Barito Utara mengadakan kegiatan pembagian parcel kepada seluruh anggotanya. Kegiatan ini sebagai bentuk apresiasi dan kebersamaan, sekaligus menyampaikan ucapan *Selamat Menunaikan Ibadah Puasa Ramadhan."
+              excerpt="Dalam rangka menyambut Hari Raya Idul Fitri 1446 H, BPBD Kabupaten Barito Utara mengadakan kegiatan pembagian parcel..."
               href="/berita/parcel-lebaran-bpbd-barito-utara-1446h"
             />
             <NewsCard
               image="/news/news2.jpg"
-              title="BPBD Barito Utara Ikuti Gelar Pasukan Operasi Ketupat Telabang 2025 untuk Pengamanan Idul Fitri 1446 H"
+              title="BPBD Barito Utara Ikuti Gelar Pasukan Operasi Ketupat Telabang 2025"
               date="20 Maret 2025"
-              excerpt="Anggota BPBD Kabupaten Barito Utara turut serta dalam Gelar Pasukan Operasi Ketupat Telabang Tahun Anggaran 2025 yang dilaksanakan di Halaman Polres Barito Utara. Kegiatan ini bertujuan untuk memastikan kesiapan dalam pengamanan Hari Raya Idul Fitri 1446 H di wilayah Kabupaten Barito Utara."
+              excerpt="Anggota BPBD Kabupaten Barito Utara turut serta dalam Gelar Pasukan Operasi Ketupat Telabang Tahun Anggaran 2025..."
               href="/berita/operasi-ketupat-2025-bpbd-barito-utara"
             />
             <NewsCard
               image="/news/news3.jpg"
-              title="BPBD dan Tim Gabungan Berhasil Padamkan Kebakaran Truk Box di Gudang Wings, Barito Utara"
+              title="BPBD dan Tim Gabungan Berhasil Padamkan Kebakaran Truk Box di Gudang Wings"
               date="19 Maret 2025"
-              excerpt="Kebakaran melanda satu unit truk box milik PT. Wings di Gudang Wings, Jl. Negara Km. 7, Kabupaten Barito Utara, pada Kamis, 19 Maret 2025, sekitar pukul 23.45 WIB. Tim gabungan yang terdiri dari BPBD, Disdamkarmat, Manggala Agni, dan masyarakat setempat segera bergerak setelah menerima laporan. Dengan bantuan delapan unit mobil pemadam, api berhasil dikendalikan dan padam sepenuhnya pada pukul 00.40 WIB. Tidak ada laporan korban jiwa dalam kejadian ini."
+              excerpt="Kebakaran melanda satu unit truk box milik PT. Wings di Gudang Wings, Jl. Negara Km. 7, Kabupaten Barito Utara..."
               href="/berita/kebakaran-truk-gudang-wings-barito-utara"
             />
           </div>
           <div className="flex justify-center mt-8">
-            <Button variant="outline" className="cursor-pointer border-[#F57C00] text-[#F57C00] hover:bg-[#F57C00] hover:text-white">
-              Lihat Semua Berita
-            </Button>
+            <Link href="/berita">
+              <Button variant="outline" className="border-[#F57C00] text-[#F57C00] hover:bg-[#F57C00] hover:text-white" aria-label="Lihat semua berita">
+                Lihat Semua Berita
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
