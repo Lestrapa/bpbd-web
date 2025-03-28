@@ -76,7 +76,6 @@ export type News = {
   _rev: string;
   title?: string;
   slug?: Slug;
-  publishedAt?: string;
   image?: {
     asset?: {
       _ref: string;
@@ -106,7 +105,7 @@ export type News = {
     _type: "block";
     _key: string;
   }>;
-  category?: "bencana" | "kegiatan" | "pengumuman";
+  publishedAt?: string;
 };
 
 export type SanityImageCrop = {
@@ -174,3 +173,78 @@ export type Slug = {
 
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | News | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: sanity/lib/queries.ts
+// Variable: NEWS_QUERY
+// Query: *[_type == "news"] | order(publishedAt desc) {    title, slug, image, content, publishedAt  }
+export type NEWS_QUERYResult = Array<{
+  title: string | null;
+  slug: Slug | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  content: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  publishedAt: string | null;
+}>;
+// Variable: NEWS_DETAIL_QUERY
+// Query: *[_type == "news" && slug.current == $slug][0]{  title, body, mainImage, publishedAt, author->{name}}
+export type NEWS_DETAIL_QUERYResult = {
+  title: string | null;
+  body: null;
+  mainImage: null;
+  publishedAt: string | null;
+  author: null;
+} | null;
+// Variable: DISASTER_GUIDE_QUERY
+// Query: *[_type == "disasterGuide" && defined(slug.current)]{  _id, title, slug, category, icon, body}
+export type DISASTER_GUIDE_QUERYResult = Array<never>;
+// Variable: DISASTER_GUIDE_DETAIL_QUERY
+// Query: *[_type == "disasterGuide" && slug.current == $slug][0]{  title, category, icon, body}
+export type DISASTER_GUIDE_DETAIL_QUERYResult = null;
+// Variable: EMERGENCY_SERVICES_QUERY
+// Query: *[_type == "emergencyService"]{  _id, name, category, contact, location}
+export type EMERGENCY_SERVICES_QUERYResult = Array<never>;
+// Variable: DISASTER_REPORTS_QUERY
+// Query: *[_type == "disasterReport"] | order(reportedAt desc)[0...12]{  _id, disasterType, location, reportedAt, status, images}
+export type DISASTER_REPORTS_QUERYResult = Array<never>;
+// Variable: DISASTER_REPORT_DETAIL_QUERY
+// Query: *[_type == "disasterReport" && _id == $id][0]{  disasterType, location, reportedAt, status, description, images}
+export type DISASTER_REPORT_DETAIL_QUERYResult = null;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    "*[_type == \"news\"] | order(publishedAt desc) {\n    title, slug, image, content, publishedAt\n  }": NEWS_QUERYResult;
+    "*[_type == \"news\" && slug.current == $slug][0]{\n  title, body, mainImage, publishedAt, author->{name}\n}": NEWS_DETAIL_QUERYResult;
+    "*[_type == \"disasterGuide\" && defined(slug.current)]{\n  _id, title, slug, category, icon, body\n}": DISASTER_GUIDE_QUERYResult;
+    "*[_type == \"disasterGuide\" && slug.current == $slug][0]{\n  title, category, icon, body\n}": DISASTER_GUIDE_DETAIL_QUERYResult;
+    "*[_type == \"emergencyService\"]{\n  _id, name, category, contact, location\n}": EMERGENCY_SERVICES_QUERYResult;
+    "*[_type == \"disasterReport\"] | order(reportedAt desc)[0...12]{\n  _id, disasterType, location, reportedAt, status, images\n}": DISASTER_REPORTS_QUERYResult;
+    "*[_type == \"disasterReport\" && _id == $id][0]{\n  disasterType, location, reportedAt, status, description, images\n}": DISASTER_REPORT_DETAIL_QUERYResult;
+  }
+}
