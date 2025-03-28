@@ -10,7 +10,7 @@ export const newsType = defineType({
       name: "slug",
       title: "Slug",
       type: "slug",
-      options: { source: "title", maxLength: 96 },
+      options: { source: "title" },
     }),
     defineField({
       name: "image",
@@ -21,13 +21,7 @@ export const newsType = defineType({
     defineField({
       name: "content",
       title: "Konten",
-      type: "array",
-      of: [{ type: "block" }],
-    }),
-    defineField({
-      name: "publishedAt",
-      title: "Tanggal Publikasi",
-      type: "datetime",
+      type: "text",
     }),
   ],
 });

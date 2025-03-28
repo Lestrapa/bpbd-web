@@ -87,25 +87,7 @@ export type News = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  publishedAt?: string;
+  content?: string;
 };
 
 export type SanityImageCrop = {
@@ -175,40 +157,14 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: sanity/lib/queries.ts
 // Variable: NEWS_QUERY
-// Query: *[_type == "news"] | order(publishedAt desc) {    title, slug, image, content, publishedAt  }
+// Query: *[_type == "news" && defined(slug.current)] | order(_createdAt desc) {    _id, title, slug, "image": image.asset->url, content, _createdAt  }
 export type NEWS_QUERYResult = Array<{
+  _id: string;
   title: string | null;
   slug: Slug | null;
-  image: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-  content: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }> | null;
-  publishedAt: string | null;
+  image: string | null;
+  content: string | null;
+  _createdAt: string;
 }>;
 // Variable: NEWS_DETAIL_QUERY
 // Query: *[_type == "news" && slug.current == $slug][0]{  title, body, mainImage, publishedAt, author->{name}}
@@ -216,7 +172,7 @@ export type NEWS_DETAIL_QUERYResult = {
   title: string | null;
   body: null;
   mainImage: null;
-  publishedAt: string | null;
+  publishedAt: null;
   author: null;
 } | null;
 // Variable: DISASTER_GUIDE_QUERY
@@ -239,7 +195,7 @@ export type DISASTER_REPORT_DETAIL_QUERYResult = null;
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"news\"] | order(publishedAt desc) {\n    title, slug, image, content, publishedAt\n  }": NEWS_QUERYResult;
+    "*[_type == \"news\" && defined(slug.current)] | order(_createdAt desc) {\n    _id, title, slug, \"image\": image.asset->url, content, _createdAt\n  }": NEWS_QUERYResult;
     "*[_type == \"news\" && slug.current == $slug][0]{\n  title, body, mainImage, publishedAt, author->{name}\n}": NEWS_DETAIL_QUERYResult;
     "*[_type == \"disasterGuide\" && defined(slug.current)]{\n  _id, title, slug, category, icon, body\n}": DISASTER_GUIDE_QUERYResult;
     "*[_type == \"disasterGuide\" && slug.current == $slug][0]{\n  title, category, icon, body\n}": DISASTER_GUIDE_DETAIL_QUERYResult;
